@@ -20,7 +20,7 @@
       <th>Opções</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventos">
       <td>{{evento.eventoId}}</td>
       <td>{{evento.imageURL}}</td>
@@ -35,4 +35,11 @@
       </td>
     </tr>
   </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
 </table>
