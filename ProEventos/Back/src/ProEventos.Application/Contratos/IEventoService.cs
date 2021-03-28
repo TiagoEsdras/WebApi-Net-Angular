@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using ProEventos.Domain;
 
-namespace ProEventos.Persistence.Contratos
+namespace ProEventos.Application.Contratos
 {
-    public interface IEventoPersist
+    public interface IEventoService
     {
-        //Eventos
+        Task<Evento> AddEventos(Evento model);
+        Task<Evento> UpdateEvento(int eventoId);
+        Task<bool> DeleteEvento(int eventoId);
         Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false);
         Task<Evento[]> GetAllEventosAsync(bool includePalestrantes = false);
         Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrantes = false);
