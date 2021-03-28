@@ -268,6 +268,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+#Excluindo Bando de Dados
+*.db
+*.db-shm
+*.db-wal
+
 
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
