@@ -3,13 +3,15 @@
 
 <div class="form-inline">
   <div class="form-group mb-2">
+    <label class="mr-2">
+      Filtro:
+    </label>
     <input
       type="text"
       class="form-control mr-2"
       placeholder="buscar"
       [(ngModel)]="filtroLista"
     >
-    <button class="btn btn-outline-success">Buscar</button>
   </div>
 </div>
 <table class="table table-striped">
@@ -52,7 +54,7 @@
       <td>{{evento.qtdPessoas}}</td>
       <td>{{evento.lote}}</td>
       <td>
-        <button class="btn btn-success btn-sm">Editar</button>
+        <button class="btn btn-primary btn-sm mr-2">Editar</button>
         <button class="btn btn-danger btn-sm">Deletar</button>
       </td>
     </tr>
