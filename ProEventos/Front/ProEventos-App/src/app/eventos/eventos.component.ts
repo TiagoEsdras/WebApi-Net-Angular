@@ -43,7 +43,7 @@ export class EventosComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.eventoService.getEvento().subscribe(
+    this.eventoService.getEventos().subscribe(
       response => {
         this.eventos = response;
         this.eventosFiltrados = this.eventos;
