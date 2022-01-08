@@ -10,27 +10,27 @@ import { EventoService } from '../services/evento.service';
 export class EventosComponent implements OnInit {
 
   public eventos: Evento[] = [];
-  public eventosFiltrados : Evento[] = [];
-  public larguraImg : number = 150;
-  public margemImg : number = 2;
-  public exibirImg : boolean = false;
-  private _filtroLista : string = '';
+  public eventosFiltrados: Evento[] = [];
+  public larguraImg = 150;
+  public margemImg = 2;
+  public exibirImg = false;
+  private filtroListado = '';
 
-  public get filtroLista() : string {
-    return this._filtroLista;
+  public get filtroLista(): string {
+    return this.filtroListado;
   }
 
   public set filtroLista(value: string) {
-    this._filtroLista = value;
+    this.filtroListado = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
 
-  public filtrarEventos(filtrarPor: string) : Evento[] {
+  public filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
-      (evento : any) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+      (evento: any) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
       evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-      )
+      );
   }
 
   constructor(private eventoService: EventoService) { }
