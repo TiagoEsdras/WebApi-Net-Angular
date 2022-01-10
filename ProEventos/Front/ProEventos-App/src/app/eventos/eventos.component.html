@@ -58,7 +58,7 @@
         <button class="btn btn-primary btn-sm mr-2" tooltip="Editar">
           <i class="fa fa-edit"></i>
         </button>
-        <button class="btn btn-danger btn-sm" tooltip="Deletar">
+        <button class="btn btn-danger btn-sm" tooltip="Deletar" (click)="openModal(template)">
           <i class="fa fa-trash"></i>
         </button>
       </td>
@@ -72,3 +72,11 @@
     </tr>
   </tfoot>
 </table>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar este evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
