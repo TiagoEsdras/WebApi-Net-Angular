@@ -7,6 +7,6 @@
     </div>
   </div>
   <div class="p-3">
-    <button class="btn btn-outline-light" *ngIf="botaoListar">Listar {{titulo}}</button>
+    <button class="btn btn-outline-light" *ngIf="botaoListar" (click)="listar()">Listar {{titulo}}</button>
   </div>
 </div>
