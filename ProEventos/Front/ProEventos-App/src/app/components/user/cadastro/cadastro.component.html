@@ -143,18 +143,24 @@
         </div>
       </div>
       <div class="form-row p-1 mb-3">
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control checkbox">
           <input
             type="checkbox"
-            class="custom-control-input"
-            id="customCheck1"
+            [ngClass]="{'is-invalid': f.termo.errors && f.termo.touched}"
+            formControlName="termo"
           >
-          <label class="custom-control-label">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
+          <label class="checkbox-inline ml-2">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
+          <div
+            *ngIf="f.termo.errors?.pattern"
+            class="invalid-feedback"
+          >
+            Aceite os termos.
+          </div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-primary btn-block px-5">
+          <button class="btn btn-lg btn-primary btn-block px-5" [disabled]="!form.valid">
             Registar
           </button>
         </div>
