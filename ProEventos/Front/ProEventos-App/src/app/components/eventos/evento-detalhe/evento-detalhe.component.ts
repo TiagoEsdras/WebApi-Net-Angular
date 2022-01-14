@@ -8,10 +8,11 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EventoDetalheComponent implements OnInit {
 
-  form: FormGroup = new FormGroup({});
+  form: FormGroup;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.validacoes();
   }
 
   public validacoes(): void {
