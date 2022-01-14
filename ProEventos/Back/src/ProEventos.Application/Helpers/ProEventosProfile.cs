@@ -1,13 +1,13 @@
 using AutoMapper;
-using ProEventos.API.Dtos;
+using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 
-namespace ProEventos.API.Helpers
+namespace ProEventos.Application.Helpers
 {
     public class ProEventosProfile : Profile
     {
         public ProEventosProfile() {
-            CreateMap<Evento, EventoDto>();
+            CreateMap<Evento, EventoDto>().ReverseMap();
         }
     }
 }

@@ -40,7 +40,7 @@
         <th class="d-none d-md-table-cell">Local</th>
         <th>Data</th>
         <th class="d-none d-md-table-cell">Qtd de Pessoas</th>
-        <th class="d-none d-md-table-cell">Lote</th>
+        <!-- <th class="d-none d-md-table-cell">Lote</th> -->
         <th>Opções</th>
       </tr>
     </thead>
@@ -61,7 +61,7 @@
         <td class="d-none d-md-table-cell">{{evento.local}}</td>
         <td>{{evento.dataEvento | DateFormatPipe}}</td>
         <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
-        <td class="d-none d-md-table-cell">{{evento.lotes[0].nome}}</td>
+        <!-- <td class="d-none d-md-table-cell">{{evento.lotes[0]?.nome}}</td> -->
         <td>
           <button class="btn btn-danger btn-md" tooltip="Deletar" (click)="openModal(template)">
             <i class="fa fa-trash"></i>

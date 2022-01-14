@@ -1,6 +1,4 @@
-using System;
-
-namespace ProEventos.API.Dtos {
+namespace ProEventos.Application.Dtos {
     public class EventoDto {
         public int Id { get; set; }
         public string Local { get; set; }

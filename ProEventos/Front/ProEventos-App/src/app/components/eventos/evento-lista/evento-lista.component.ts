@@ -60,6 +60,7 @@ export class EventoListaComponent implements OnInit {
     this.eventoService.getEventos().subscribe({
       next: (eventos: Evento[]) => {
         this.eventos = eventos;
+        console.log(eventos);
         this.eventosFiltrados = this.eventos;
       },
       error: (error: any) => {
