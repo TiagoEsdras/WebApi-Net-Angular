@@ -29,6 +29,7 @@ import { EventoListaComponent } from './components/eventos/evento-lista/evento-l
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { CadastroComponent } from './components/user/cadastro/cadastro.component';
+import { ErroMessageComponent } from './shared/erro-message/erro-message.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { CadastroComponent } from './components/user/cadastro/cadastro.component
     DateTimeFormatPipe,
     UserComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    ErroMessageComponent
    ],
   imports: [
     BrowserModule,

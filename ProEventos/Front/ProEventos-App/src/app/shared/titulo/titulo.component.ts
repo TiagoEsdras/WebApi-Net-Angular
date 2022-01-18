@@ -14,11 +14,11 @@ export class TituloComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   listar(): void {
-    this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`])
+    this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`]);
   }
 
 }

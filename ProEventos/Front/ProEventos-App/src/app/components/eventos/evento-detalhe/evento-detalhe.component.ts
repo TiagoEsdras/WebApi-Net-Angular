@@ -36,4 +36,7 @@ export class EventoDetalheComponent implements OnInit {
     this.form.reset();
   }
 
+  public validateCss(campo: FormControl): any {
+    return {'is-invalid': campo.errors && campo.touched};
+  }
 }

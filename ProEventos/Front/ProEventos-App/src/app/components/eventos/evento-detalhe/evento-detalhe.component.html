@@ -9,28 +9,11 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.tema.errors && f.tema.touched}"
+            [ngClass]="validateCss(f.tema)"
             formControlName="tema"
             placeholder="Insira o Tema"
           >
-          <div
-            *ngIf="f.tema.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
-          <div
-            *ngIf="f.tema.errors?.minlength"
-            class="invalid-feedback"
-          >
-            Campo deve ter no mínimo 4 caracteres.
-          </div>
-          <div
-            *ngIf="f.tema.errors?.maxlength"
-            class="invalid-feedback"
-          >
-            Campo deve ter no máximo 50 caracteres.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.tema" label="Tema"></app-erro-message>
         </div>
       </div>
       <div class="form-row">
@@ -39,32 +22,22 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.local.errors && f.local.touched}"
+            [ngClass]="validateCss(f.local)"
             formControlName="local"
             placeholder=""
           >
-          <div
-            *ngIf="f.local.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.local" label="Local"></app-erro-message>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
           <input
             type="datetime"
             class="form-control"
-            [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
+            [ngClass]="validateCss(f.dataEvento)"
             formControlName="dataEvento"
             placeholder=""
           >
-          <div
-            *ngIf="f.dataEvento.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.dataEvento" label="Data do evento"></app-erro-message>
         </div>
       </div>
       <div class="form-row">
@@ -73,76 +46,44 @@
           <input
             type="number"
             class="form-control"
-            [ngClass]="{'is-invalid': f.qtdPessoas.errors && f.qtdPessoas.touched}"
+            [ngClass]="validateCss(f.qtdPessoas)"
             formControlName="qtdPessoas"
             placeholder=""
           >
-          <div
-            *ngIf="f.qtdPessoas.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
-          <div
-            *ngIf="f.qtdPessoas.errors?.max"
-            class="invalid-feedback"
-          >
-            Máximo de 120.000 pessoas.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.qtdPessoas" label="Qtd pessoas"></app-erro-message>
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.telefone.errors && f.telefone.touched}"
+            [ngClass]="validateCss(f.telefone)"
             formControlName="telefone"
             placeholder="(00) 00000-0000"
           >
-          <div
-            *ngIf="f.telefone.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.telefone" label="Telefone"></app-erro-message>
         </div>
         <div class="form-group col-md-4">
           <label>Email</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.email.errors && f.email.touched}"
+            [ngClass]="validateCss(f.email)"
             formControlName="email"
             placeholder="email"
           >
-          <div
-            *ngIf="f.email.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
-          <div
-            *ngIf="f.email.errors?.email"
-            class="invalid-feedback"
-          >
-            Email inválido.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.email" label="Email"></app-erro-message>
         </div>
         <div class="form-group col-md-4">
           <label>Imagem</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.imagemURL.errors && f.imagemURL.touched}"
+            [ngClass]="validateCss(f.imagemURL)"
             formControlName="imagemURL"
             placeholder="imagem"
           >
-          <div
-            *ngIf="f.imagemURL.errors?.required"
-            class="invalid-feedback"
-          >
-            Campo obrigatório.
-          </div>
+          <app-erro-message class="invalid-feedback" [control]="f.imagemURL" label="Imagem"></app-erro-message>
         </div>
       </div>
     </div>
