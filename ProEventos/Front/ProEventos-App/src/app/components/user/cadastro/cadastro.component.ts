@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorField } from '@app/helpers/ValidatorField';
 
 @Component({
@@ -35,5 +35,9 @@ export class CadastroComponent implements OnInit {
       confirmarSenha: ['', Validators.required],
       termo: [null, Validators.pattern('true')]
     }, formOptions);
+  }
+
+  public validateCss(campo: FormControl): any {
+    return {'is-invalid': campo.errors && campo.touched};
   }
 }

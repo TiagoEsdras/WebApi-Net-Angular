@@ -9,7 +9,8 @@ export class FormValidations {
       max: `${fieldName} não pode ser maior que ${validatorValue.max}.`,
       min: `${fieldName} não pode ser menor que ${validatorValue.min}.`,
       email: `Email inválido!`,
-      mustMatch: `${fieldName}s não coincidem.`
+      mustMatch: `${fieldName}s não coincidem.`,
+      pattern: `Aceite os ${fieldName}`
     };
 
     return config[validatorName];
