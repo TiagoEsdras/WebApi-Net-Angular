@@ -34,8 +34,10 @@
             type="datetime"
             class="form-control"
             [ngClass]="validateCss(f.dataEvento)"
+            [bsConfig]="bsConfig"
             formControlName="dataEvento"
             placeholder=""
+            bsDatepicker
           >
           <app-erro-message class="invalid-feedback" [control]="f.dataEvento" label="Data do evento"></app-erro-message>
         </div>
