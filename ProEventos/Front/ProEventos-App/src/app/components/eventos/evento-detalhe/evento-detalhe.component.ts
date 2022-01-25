@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EventoService } from '@app/services/evento.service';
 import { Evento } from '@app/models/Evento';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -16,6 +17,7 @@ export class EventoDetalheComponent implements OnInit {
 
   evento: Evento;
   form: FormGroup;
+  estadoSalvar: string = 'post';
 
   get f(): any {
     return this.form.controls;
@@ -70,6 +72,7 @@ export class EventoDetalheComponent implements OnInit {
     const eventoIdParam = this.router.snapshot.paramMap.get('id');
 
     if(eventoIdParam !== null) {
+      this.estadoSalvar = "put";
       this.spinner.show();
       this.eventoService.getEventoById(+eventoIdParam).subscribe({
         next: (evento: Evento) => {
@@ -91,8 +94,10 @@ export class EventoDetalheComponent implements OnInit {
   public salvarAlteracao(): void {
     this.spinner.show();
     if(this.form.valid) {
-      this.evento = {...this.form.value};
-      this.eventoService.postEvento(this.evento).subscribe({
+
+      this.evento = this.estadoSalvar === 'post' ?  {...this.form.value} : {id: this.evento.id, ...this.form.value}
+
+      this.eventoService[this.estadoSalvar](this.evento).subscribe({
         next: (evento: Evento) => {
           this.toastr.success('Evento salvo com sucesso!', 'Sucesso');
           this.spinner.hide();
@@ -105,8 +110,7 @@ export class EventoDetalheComponent implements OnInit {
         complete: () => {
           this.spinner.hide();
         }
-      })
+      });
     }
-
   }
 }
