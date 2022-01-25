@@ -78,7 +78,7 @@ export class EventoDetalheComponent implements OnInit {
         },
         error: (error: any) => {
           this.spinner.hide();
-          this.toastr.error('Erro ao tentar carregar o evento!')
+          this.toastr.error('Erro ao tentar carregar o evento!', 'Erro!')
           console.error(error);
         },
         complete: () => {
