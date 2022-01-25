@@ -38,6 +38,7 @@
             formControlName="dataEvento"
             placeholder=""
             bsDatepicker
+            value="{{evento?.dataEvento | DateFormatPipe}}"
           >
           <app-erro-message class="invalid-feedback" [control]="f.dataEvento" label="Data do evento"></app-erro-message>
         </div>
@@ -94,7 +95,7 @@
         <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarAlteracao()">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Evento
         </button>

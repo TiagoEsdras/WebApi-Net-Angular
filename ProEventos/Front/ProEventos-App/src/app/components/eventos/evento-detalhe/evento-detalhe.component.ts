@@ -78,7 +78,7 @@ export class EventoDetalheComponent implements OnInit {
         },
         error: (error: any) => {
           this.spinner.hide();
-          this.toastr.error('Erro ao tentar carregar o evento!', 'Erro!')
+          this.toastr.error('Erro ao tentar carregar o evento!', 'Error')
           console.error(error);
         },
         complete: () => {
@@ -86,5 +86,27 @@ export class EventoDetalheComponent implements OnInit {
         }
       });
     }
+  }
+
+  public salvarAlteracao(): void {
+    this.spinner.show();
+    if(this.form.valid) {
+      this.evento = {...this.form.value};
+      this.eventoService.postEvento(this.evento).subscribe({
+        next: (evento: Evento) => {
+          this.toastr.success('Evento salvo com sucesso!', 'Sucesso');
+          this.spinner.hide();
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.spinner.hide();
+          this.toastr.error('Erro ao tentar salvar evento!', 'Error');
+        },
+        complete: () => {
+          this.spinner.hide();
+        }
+      })
+    }
+
   }
 }
