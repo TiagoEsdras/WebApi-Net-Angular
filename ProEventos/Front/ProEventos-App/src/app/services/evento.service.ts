@@ -28,7 +28,7 @@ export class EventoService {
     return this.http.put<Evento>(`${this.baseURL}/${id}`, evento);
   }
 
-  public deleteEvento(id : number): Observable<string> {
-    return this.http.delete<string>(`${this.baseURL}/${id}`);
+  public deleteEvento(id : number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.baseURL}/${id}`);
   }
 }

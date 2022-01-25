@@ -115,7 +115,7 @@ namespace ProEventos.API.Controllers
                 if(evento == null) return NoContent();
 
                 return await _eventoService.DeleteEvento(id) ? 
-                    Ok("Deletado") : throw new Exception("Ocorreu um erro ao tentar deletar o evento!");
+                    Ok(true) : throw new Exception("Ocorreu um erro ao tentar deletar o evento!");
             }
             catch (Exception ex)
             {

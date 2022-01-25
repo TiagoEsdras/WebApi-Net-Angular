@@ -65,7 +65,7 @@ export class EventoListaComponent implements OnInit {
       },
       error: (error: any) => {
         this.spinner.hide();
-        this.toastr.error('Erro ao carregar os eventos', 'ERROR!');
+        this.toastr.error('Erro ao carregar os eventos', 'Error!');
       },
       complete: () => this.spinner.hide()
     });
@@ -83,7 +83,23 @@ export class EventoListaComponent implements OnInit {
 
   confirm(): void {
     this.modalRef?.hide();
-    this.toastr.success('O evento foi deletado com sucesso.', 'Deletado!');
+    this.spinner.show();
+    this.eventoService.deleteEvento(this.eventoId).subscribe({
+      next: (result: boolean) => {
+        if(result)
+          this.toastr.success('O evento foi deletado com sucesso.', 'Deletado!');
+          this.spinner.hide();
+          this.getEventos();
+      },
+      error: (error: any) => {
+        this.toastr.error(`Erro ao tentar deletar o evento ${this.eventoId}`, 'Error!');
+        this.spinner.hide();
+        console.error(error);
+      },
+      complete: () => {
+        this.spinner.hide();
+      }
+    })
   }
 
   decline(): void {
