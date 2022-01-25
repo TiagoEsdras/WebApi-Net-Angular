@@ -20,6 +20,7 @@ export class EventoListaComponent implements OnInit {
   public larguraImg = 150;
   public margemImg = 2;
   public exibirImg = false;
+  public eventoId: number;
   private filtroListado = '';
 
   public get filtroLista(): string {
@@ -74,7 +75,9 @@ export class EventoListaComponent implements OnInit {
     this.router.navigate([`eventos/detalhe/${eventoId}`]);
   }
 
-  openModal(template: TemplateRef<any>): void {
+  openModal(event: any, template: TemplateRef<any>, eventoId: number): void {
+    event.stopPropagation();
+    this.eventoId = eventoId;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
