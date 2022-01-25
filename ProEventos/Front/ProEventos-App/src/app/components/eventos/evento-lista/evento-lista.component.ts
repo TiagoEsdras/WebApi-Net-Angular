@@ -64,11 +64,10 @@ export class EventoListaComponent implements OnInit {
         this.eventosFiltrados = this.eventos;
       },
       error: (error: any) => {
-        this.spinner.hide();
         this.toastr.error('Erro ao carregar os eventos', 'Error!');
-      },
-      complete: () => this.spinner.hide()
-    });
+      }
+    })
+    .add(() => this.spinner.hide());
   }
 
   detalheEvento = (eventoId: number) => {
@@ -88,18 +87,14 @@ export class EventoListaComponent implements OnInit {
       next: (result: boolean) => {
         if(result)
           this.toastr.success('O evento foi deletado com sucesso.', 'Deletado!');
-          this.spinner.hide();
           this.getEventos();
       },
       error: (error: any) => {
         this.toastr.error(`Erro ao tentar deletar o evento ${this.eventoId}`, 'Error!');
-        this.spinner.hide();
         console.error(error);
-      },
-      complete: () => {
-        this.spinner.hide();
       }
     })
+    .add(() => this.spinner.hide());
   }
 
   decline(): void {
