@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,10 @@ export class EventoDetalheComponent implements OnInit {
   evento: Evento;
   form: FormGroup;
   estadoSalvar: string = 'post';
+
+  get modoEditar(): boolean {
+    return this.estadoSalvar === 'put';
+  }
 
   get lotes(): FormArray {
     return this.form.get('lotes') as FormArray;
@@ -39,10 +43,11 @@ export class EventoDetalheComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private localeService: BsLocaleService,
-    private router: ActivatedRoute,
+    private activatedRouter: ActivatedRoute,
     private eventoService: EventoService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
     ) {
       this.localeService.use('pt-br');
     }
@@ -84,12 +89,12 @@ export class EventoDetalheComponent implements OnInit {
     this.form.reset();
   }
 
-  public validateCss(campo: FormControl): any {
+  public validateCss(campo: FormControl | AbstractControl): any {
     return {'is-invalid': campo.errors && campo.touched};
   }
 
   public carregarEvento(): void{
-    const eventoIdParam = this.router.snapshot.paramMap.get('id');
+    const eventoIdParam = this.activatedRouter.snapshot.paramMap.get('id');
 
     if(eventoIdParam !== null) {
       this.estadoSalvar = "put";
@@ -115,8 +120,9 @@ export class EventoDetalheComponent implements OnInit {
       this.evento = this.estadoSalvar === 'post' ?  {...this.form.value} : {id: this.evento.id, ...this.form.value}
 
       this.eventoService[this.estadoSalvar](this.evento).subscribe({
-        next: (evento: Evento) => {
+        next: (eventoRetorno: Evento) => {
           this.toastr.success('Evento salvo com sucesso!', 'Sucesso');
+          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`]);
         },
         error: (error: any) => {
           console.error(error);
