@@ -119,11 +119,13 @@
         <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
-              <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
+              <button
+                class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                 tooltip="Excluir Lote"
                 [adaptivePosition]="false"
                 [delay]="500"
-                placement="left">
+                placement="left"
+                (click)="openModal(template, i)">
               <i class="fa fa-window-close my-1"></i>
               <b class="ml-1 d-none d-sm-block">Excluir</b>
             </button>
@@ -200,3 +202,12 @@
   </div>
 </div>
 <br>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar o lote {{this.loteAtual.nome}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
