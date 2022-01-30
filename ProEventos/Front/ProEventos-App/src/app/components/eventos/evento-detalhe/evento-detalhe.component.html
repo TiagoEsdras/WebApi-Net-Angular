@@ -95,7 +95,7 @@
         <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarAlteracao()">
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarEvento()">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Evento
         </button>
@@ -193,7 +193,7 @@
       <button class="btn btn-outline-secondary mr-auto border">
         Cancelar Alteração
       </button>
-      <button class="btn btn-success">
+      <button class="btn btn-success" (click)="salvarLotes()">
         Salvar Lotes
       </button>
     </div>
