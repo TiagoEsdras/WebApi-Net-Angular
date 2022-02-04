@@ -162,6 +162,10 @@ export class EventoDetalheComponent implements OnInit {
     }
   }
 
+  public retornaTituloLote(value: string): string {
+    return value === null || value === '' ? 'Nome do lote' : value;
+  }
+
   public openModal(template: TemplateRef<any> , index: number): void {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
     this.loteAtual.index = index;
