@@ -77,6 +77,10 @@ export class EventoDetalheComponent implements OnInit {
     });
   }
 
+  public mudarValorData(value: Date, index: number, campo: string): void {
+    this.lotes.value[index][campo] = value;
+  }
+
   adicionarLote(): void {
     this.lotes.push(this.criarLote({ id: 0 } as Lote));
   }
