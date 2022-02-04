@@ -107,7 +107,7 @@ export class EventoDetalheComponent implements OnInit {
   public carregarEvento(): void{
     this.eventoId = +this.activatedRouter.snapshot.paramMap.get('id');
 
-    if(this.eventoId !== null || this.eventoId === 0) {
+    if(this.eventoId !== null && this.eventoId !== 0) {
       this.estadoSalvar = "put";
       this.spinner.show();
       this.eventoService.getEventoById(this.eventoId).subscribe({
@@ -128,9 +128,8 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public salvarEvento(): void {
-    this.spinner.show();
     if(this.form.valid) {
-
+      this.spinner.show();
       this.evento = this.estadoSalvar === 'post' ?  {...this.form.value} : {id: this.evento.id, ...this.form.value}
 
       this.eventoService[this.estadoSalvar](this.evento).subscribe({
