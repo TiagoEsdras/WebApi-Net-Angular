@@ -9,6 +9,7 @@ import { LoteService } from '@app/services/lote.service';
 import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -23,6 +24,8 @@ export class EventoDetalheComponent implements OnInit {
   form: FormGroup;
   estadoSalvar: string = 'post';
   loteAtual = {id: 0, nome: '', index: 0};
+  imagemUrl = 'assets/img/upload.png';
+  file: File;
 
   get modoEditar(): boolean {
     return this.estadoSalvar === 'put';
@@ -72,7 +75,7 @@ export class EventoDetalheComponent implements OnInit {
       qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      imageURL: ['', Validators.required],
+      imageURL: [''],
       lotes: this.fb.array([])
     });
   }
@@ -114,6 +117,11 @@ export class EventoDetalheComponent implements OnInit {
         next: (evento: Evento) => {
           this.evento = {...evento};
           this.form.patchValue(this.evento);
+
+          if(this.evento.imageURL !== "") {
+            this.imagemUrl = environment.apiURL + 'resources/images/' + this.evento.imageURL;
+          }
+
           this.evento.lotes.forEach(lote => {
             this.lotes.push(this.criarLote(lote));
           });
@@ -184,7 +192,7 @@ export class EventoDetalheComponent implements OnInit {
         },
         error: (error: any) => {
           console.error(error);
-          this.toastr.error('Erro ao tentar deletar lotes', 'Error');
+          this.toastr.error('Erro ao tentar deletar lotes!', 'Error');
         }
       })
       .add(() => this.spinner.hide());
@@ -192,5 +200,28 @@ export class EventoDetalheComponent implements OnInit {
 
   decline(): void {
     this.modalRef?.hide();
+  }
+
+  public onFileChange(event: any): void {
+    const reader = new FileReader();
+    reader.onload = (ev: any) => this.imagemUrl = ev.target.result;
+    this.file = event.target.files;
+    reader.readAsDataURL(this.file[0]);
+    this.uploadImage();
+  }
+
+  public uploadImage(): void {
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe({
+      next: () => {
+        this.toastr.success('Imagem foi atualizada com sucesso!', 'Sucesso');
+        this.carregarEvento();
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.toastr.error('Erro ao tentar fazer upoload da imagem!', 'Error');
+      }
+    })
+    .add(() => this.spinner.hide());
   }
 }

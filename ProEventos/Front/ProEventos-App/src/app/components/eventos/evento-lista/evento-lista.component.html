@@ -50,7 +50,7 @@
           <img
             [collapse]="exibirImg"
             [isAnimated]="true"
-            src="/assets/{{evento.imageURL}}" alt="{{evento.imageURL}}"
+            [src]="mostrarImagem(evento.imageURL)" alt="{{evento.imageURL}}"
             [style.width.px]="larguraImg"
             [style.margin.px]="margemImg"
 
