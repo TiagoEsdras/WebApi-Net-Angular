@@ -44,7 +44,7 @@ namespace ProEventos.Persistence
             }
 
             query = query.OrderBy(palestrante => palestrante.Id)
-            .Where(palestrante => palestrante.Nome.ToLower().Contains(nome.ToLower()));
+            .Where(palestrante => palestrante.User.UserName.ToLower().Contains(nome.ToLower()));
 
             return await query.ToArrayAsync();
         }
