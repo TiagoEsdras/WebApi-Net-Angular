@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json.Serialization;
 using ProEventos.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ProEventos.API
 {
@@ -52,6 +55,18 @@ namespace ProEventos.API
             .AddRoleValidator<RoleValidator<Role>>()
             .AddEntityFrameworkStores<ProEventosContext>()
             .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(
+                options => {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                }
+            );
 
             services.AddControllers()
                 .AddJsonOptions(
