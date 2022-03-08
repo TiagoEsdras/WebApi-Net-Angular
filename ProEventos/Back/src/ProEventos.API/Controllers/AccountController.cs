@@ -25,12 +25,14 @@ namespace ProEventos.API.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUser()
+        [HttpGet("GetUser/{username}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUser(string username)
         {
             try
             {
-                
+                var user = await _accountService.GetUserByUserNameAsync(username);
+                return Ok(user);
             }
             catch (Exception ex)
             {
