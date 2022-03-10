@@ -10,9 +10,11 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using ProEventos.API.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProEventos.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
@@ -50,7 +52,7 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
         public async Task<IActionResult> GetById(int id)
         {
             try
