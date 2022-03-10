@@ -51,9 +51,8 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                if(await _accountService.UserExist(user.UserName)) {
+                if(await _accountService.UserExist(user.UserName))
                     return BadRequest("Usuário já existe!");
-                }
 
                 var userCreated = await _accountService.CrateAccountAsync(user); 
                     
@@ -63,7 +62,7 @@ namespace ProEventos.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                $"Erro ao tentar recuperar usuário. Erro: {ex.Message}");
+                $"Erro ao tentar registrar novo usuário. Erro: {ex.Message}");
             }
         }
 
@@ -82,7 +81,7 @@ namespace ProEventos.API.Controllers
 
                 return !result.Succeeded ? Unauthorized("Senha incorreta")
                     : Ok(new {
-                        userName = user.Username,
+                        userName = user.UserName,
                         primeiroNome = user.PrimeiroNome,
                         token = _tokenService.CreateToken(user).Result
                     });
@@ -90,7 +89,28 @@ namespace ProEventos.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                $"Erro ao tentar recuperar usuário. Erro: {ex.Message}");
+                $"Erro ao tentar fazer login. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPut("UpdateUser")]        
+        public async Task<IActionResult> Update(UserUpdateDto userUpdate)
+        {
+            try
+            {
+                var user = await _accountService.GetUserByUserNameAsync(User.GetUserName());
+
+                if(user == null)
+                    return BadRequest("Usuário inválido");
+                
+                var userUpdated = await _accountService.UpdateAccount(userUpdate);
+
+                return userUpdated == null ? NoContent() : Ok(userUpdated);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar atualizar usuário. Erro: {ex.Message}");
             }
         }
     }
