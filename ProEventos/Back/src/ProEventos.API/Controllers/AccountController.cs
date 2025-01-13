@@ -83,6 +83,7 @@ namespace ProEventos.API.Controllers
                     : Ok(new {
                         userName = user.UserName,
                         primeiroNome = user.PrimeiroNome,
+                        ultimoNome = user.UltimoNome,
                         token = _tokenService.CreateToken(user).Result
                     });
             }
