@@ -26,6 +26,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 
+import { AccountService } from './services/account.service';
 import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
 
@@ -78,6 +79,7 @@ defineLocale('pt-br', ptBrLocale);
     })
   ],
   providers: [
+    AccountService,
     EventoService,
     LoteService
   ],
