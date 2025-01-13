@@ -6,7 +6,7 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<form [formGroup]="form" class="p-1">
+		<form [formGroup]="form" class="p-1" (ngSubmit)="register()">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
@@ -16,22 +16,22 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]=validateCss(f.nome)
-            formControlName="nome"
+            [ngClass]=validateCss(f.primeiroNome)
+            formControlName="primeiroNome"
             placeholder="Nome"
           />
-          <app-erro-message class="invalid-feedback" [control]="f.nome" label="Nome"></app-erro-message>
+          <app-erro-message class="invalid-feedback" [control]="f.primeiroNome" label="Nome"></app-erro-message>
         </div>
         <div class="form-group col-sm-6">
           <label>Sobrenome</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]=validateCss(f.sobrenome)
-            formControlName="sobrenome"
+            [ngClass]=validateCss(f.ultimoNome)
+            formControlName="ultimoNome"
             placeholder="Sobrenome"
           />
-          <app-erro-message class="invalid-feedback" [control]="f.sobrenome" label="Sobrenome"></app-erro-message>
+          <app-erro-message class="invalid-feedback" [control]="f.ultimoNome" label="Sobrenome"></app-erro-message>
         </div>
       </div>
       <div class="form-group">
@@ -49,12 +49,12 @@
         <label for="">Usuario:</label>
         <input
           class="form-control"
-          [ngClass]=validateCss(f.usuario)
-          formControlName="usuario"
+          [ngClass]=validateCss(f.userName)
+          formControlName="userName"
           type="text"
           placeholder="Insira o nome de usuário"
         />
-        <app-erro-message class="invalid-feedback" [control]="f.usuario" label="Usuário"></app-erro-message>
+        <app-erro-message class="invalid-feedback" [control]="f.userName" label="Usuário"></app-erro-message>
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
@@ -62,24 +62,24 @@
           <input
             autocomplete
             class="form-control"
-            [ngClass]=validateCss(f.senha)
-            formControlName="senha"
+            [ngClass]=validateCss(f.password)
+            formControlName="password"
             type="password"
             placeholder="Digite uma Senha"
           />
-          <app-erro-message class="invalid-feedback" [control]="f.senha" label="Senha"></app-erro-message>
+          <app-erro-message class="invalid-feedback" [control]="f.password" label="Senha"></app-erro-message>
         </div>
         <div class="form-group col-sm-6">
           <label for="">Confirmar Senha:</label>
           <input
             autocomplete
             class="form-control"
-            [ngClass]=validateCss(f.confirmarSenha)
-            formControlName="confirmarSenha"
+            [ngClass]=validateCss(f.confirmarPassword)
+            formControlName="confirmarPassword"
             type="password"
             placeholder="Confirme a Senha"
           />
-          <app-erro-message class="invalid-feedback" [control]="f.confirmarSenha" label="Senha"></app-erro-message>
+          <app-erro-message class="invalid-feedback" [control]="f.confirmarPassword" label="Senha"></app-erro-message>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
@@ -95,7 +95,7 @@
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-primary btn-block px-5" [disabled]="!form.valid">
+          <button class="btn btn-lg btn-primary btn-block px-5" [disabled]="!form.valid" type="submit">
             Registar
           </button>
         </div>
