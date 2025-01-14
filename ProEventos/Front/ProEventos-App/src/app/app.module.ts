@@ -38,6 +38,7 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { CadastroComponent } from './components/user/cadastro/cadastro.component';
 import { ErroMessageComponent } from './shared/erro-message/erro-message.component';
+import { HomeComponent } from './components/home/home.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -57,8 +58,9 @@ defineLocale('pt-br', ptBrLocale);
     UserComponent,
     LoginComponent,
     CadastroComponent,
-    ErroMessageComponent
-   ],
+    ErroMessageComponent,
+    HomeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -78,15 +80,15 @@ defineLocale('pt-br', ptBrLocale);
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true,
-    })
+    }),
   ],
   providers: [
     AccountService,
     EventoService,
     LoteService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}
