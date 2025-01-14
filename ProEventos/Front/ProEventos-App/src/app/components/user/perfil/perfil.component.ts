@@ -43,7 +43,6 @@ export class PerfilComponent implements OnInit {
         (userRetorno: UserUpdate) => {
           this.userUpdate = userRetorno;
           this.form.patchValue(this.userUpdate);
-          this.toastr.success('Usuário Carregado', 'Sucesso');
         },
         (error) => {
           console.error(error);

@@ -13,12 +13,9 @@
             </a>
           </div>
           <div class="card-body">
-            <div class="h4 text-center mb-3">@UserName</div>
-            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
-            <div class="h7">
-              Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-              etc.
-            </div>
+            <div class="h4 text-center mb-3">{{f.userName.value}}</div>
+            <div class="h7 text-bold pb-1"><b>Nome:</b> {{ f.primeiroNome.value }} {{ f.ultimoNome.value }}</div>
+            <div class="h7">{{ f.descricao.value }}</div>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -115,7 +112,7 @@
             </select>
             <app-erro-message class="invalid-feedback" [control]="f.funcao" label="Função"></app-erro-message>
           </div>
-          <form-group class="col-12">
+          <div class="form-group col-12">
             <label>Descrição</label>
             <input type="text"
               class="form-control"
@@ -123,7 +120,7 @@
               formControlName="descricao"
             />
             <app-erro-message class="invalid-feedback" [control]="f.descricao" label="Descricao"></app-erro-message>
-          </form-group>
+          </div>
         </div>
         <div>
           <h3 class="pt-3 border-bottom">Mudar Senha</h3>
