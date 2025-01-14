@@ -1,6 +1,6 @@
 <app-titulo [titulo]="'Perfil'"></app-titulo>
 <div class="card rounded shadow-sm">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -49,15 +49,14 @@
               [ngClass]="validateCss(f.titulo)"
               formControlName="titulo"
             >
-              <option value="" disabled selected>Selecione...</option>
-              <option value="0">Não Quero</option>
-              <option value="Senhorita">Tecnólogo(a)</option>
-              <option value="Senhorita">Bacharel</option>
-              <option value="Senhorita">Especialista</option>
-              <option value="Senhorita">Pós Graduado(a)</option>
-              <option value="Senhorita">Mestre</option>
-              <option value="Senhorita">Doutor(a)</option>
-              <option value="Senhorita">Pós Doc</option>
+              <option value="NaoInformado">Não Informado</option>
+              <option value="Tecnologo">Tecnólogo(a)</option>
+              <option value="Bacharel">Bacharel</option>
+              <option value="Especialista">Especialista</option>
+              <option value="PosGraduado">Pós Graduado(a)</option>
+              <option value="Mestre">Mestre</option>
+              <option value="Doutor">Doutor(a)</option>
+              <option value="PosDOutorado">Pós Doutorado(a)</option>
             </select>
             <app-erro-message class="invalid-feedback" [control]="f.titulo" label="Título"></app-erro-message>
           </div>
@@ -65,21 +64,21 @@
             <label>Nome</label>
             <input type="text"
               class="form-control"
-              [ngClass]="validateCss(f.nome)"
-              formControlName ="nome"
+              [ngClass]="validateCss(f.primeiroNome)"
+              formControlName ="primeiroNome"
               placeholder="Nome"
             />
-            <app-erro-message class="invalid-feedback" [control]="f.nome" label="Nome"></app-erro-message>
+            <app-erro-message class="invalid-feedback" [control]="f.primeiroNome" label="Nome"></app-erro-message>
           </div>
           <div class="form-group col-sm-5">
             <label>Sobrenome</label>
             <input type="text"
               class="form-control"
-              [ngClass]="validateCss(f.sobrenome)"
-              formControlName ="sobrenome"
+              [ngClass]="validateCss(f.ultimoNome)"
+              formControlName ="ultimoNome"
               placeholder="Sobrenome"
             />
-            <app-erro-message class="invalid-feedback" [control]="f.sobrenome" label="Sobrenome"></app-erro-message>
+            <app-erro-message class="invalid-feedback" [control]="f.ultimoNome" label="Sobrenome"></app-erro-message>
           </div>
         </div>
         <div class="form-row">
@@ -97,11 +96,11 @@
             <label>Telefone</label>
             <input type="text"
               class="form-control"
-              [ngClass]="validateCss(f.telefone)"
-              formControlName="telefone"
+              [ngClass]="validateCss(f.phoneNumber)"
+              formControlName="phoneNumber"
               placeholder="(00) 00000-0000"
             />
-            <app-erro-message class="invalid-feedback" [control]="f.telefone" label="Telefone"></app-erro-message>
+            <app-erro-message class="invalid-feedback" [control]="f.phoneNumber" label="Telefone"></app-erro-message>
           </div>
           <div class="form-group col-sm">
             <label>Função</label>
@@ -110,7 +109,7 @@
               [ngClass]="validateCss(f.funcao)"
               formControlName="funcao"
             >
-              <option value="" disabled selected>Selecione...</option>
+              <option value="NaoInformado">Não Informado</option>
               <option value="Participante">Participante</option>
               <option value="Palestrante">Palestrante</option>
             </select>
@@ -133,29 +132,39 @@
         <div class="form-row">
           <div class="form-group col-sm">
             <label>Senha</label>
-            <input type="password"
+            <input
+              type="password"
+              formControlName="password"
               class="form-control"
-              placeholder="Senha"
-              autocomplete
+              [ngClass]="validateCss(f.password)"
             />
+            <div *ngIf="f.password.errors && f.password.touched" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Senha é obrigatório</div>
+              <div *ngIf="f.password.errors.minlength">Senha precisa ter pelo menos 6 caracteres</div>
+            </div>
           </div>
           <div class="form-group col-sm">
             <label>Confirmar Senha</label>
-            <input type="password"
+            <input
+              type="password"
+              formControlName="confirmePassword"
               class="form-control"
-              placeholder="Confirmar senha"
-              autocomplete
+              [ngClass]="validateCss(f.confirmePassword)"
             />
+            <div *ngIf="f.confirmePassword.errors && f.confirmePassword.touched" class="invalid-feedback">
+              <div *ngIf="f.confirmePassword.errors.required">Confirmação de senha é obrigatório</div>
+              <div *ngIf="f.confirmePassword.errors.mustMatch">Senha e Confirmação de Senha não sao iguais.</div>
+            </div>
           </div>
         </div>
-      </div>
+        </div>
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm($event)">
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
+        <button class="btn btn-success" type="submit">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Alteração
         </button>

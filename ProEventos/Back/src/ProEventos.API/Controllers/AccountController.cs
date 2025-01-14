@@ -99,14 +99,24 @@ namespace ProEventos.API.Controllers
         {
             try
             {
+                if (userUpdate.UserName != User.GetUserName())
+                    return Unauthorized("Usuário inválido");
+
                 var user = await _accountService.GetUserByUserNameAsync(User.GetUserName());
 
                 if(user == null)
                     return BadRequest("Usuário inválido");
-                
+
+                userUpdate.Id = user.Id;
                 var userUpdated = await _accountService.UpdateAccount(userUpdate);
 
-                return userUpdated == null ? NoContent() : Ok(userUpdated);
+                return userUpdated == null ? NoContent() : Ok(new
+                {
+                    userName = userUpdated.UserName,
+                    primeiroNome = userUpdated.PrimeiroNome,
+                    ultimoNome = userUpdated.UltimoNome,
+                    token = _tokenService.CreateToken(userUpdated).Result
+                });
             }
             catch (Exception ex)
             {
