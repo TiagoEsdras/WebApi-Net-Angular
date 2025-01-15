@@ -28,6 +28,8 @@ export class EventoService {
       params = params.append('pageSize', itemsPerPage.toString());
     }
 
+    if (term != null && term != '') params = params.append('term', term);
+
     return this.http
       .get<Evento[]>(this.baseURL, { observe: 'response', params })
       .pipe(

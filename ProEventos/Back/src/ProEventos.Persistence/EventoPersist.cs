@@ -37,7 +37,7 @@ namespace ProEventos.Persistence
             }
 
             if (pageParams.Term is not null)
-                query = query.Where(evento => evento.Tema.ToLower().Contains(pageParams.Term.ToLower()));
+                query = query.Where(evento => evento.Tema.ToLower().Contains(pageParams.Term.ToLower()) || evento.Local.ToLower().Contains(pageParams.Term.ToLower()));
 
             query = query.AsNoTracking()
                            .Where(evento => evento.UserId == userId)
