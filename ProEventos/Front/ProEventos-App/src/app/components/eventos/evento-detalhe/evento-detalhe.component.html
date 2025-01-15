@@ -14,7 +14,6 @@
                 [ngClass]="validateCss(f.tema)"
                 formControlName="tema"
                 placeholder="Insira o Tema"
-                [(ngModel)]="evento.tema"
               >
               <app-erro-message class="invalid-feedback" [control]="f.tema" label="Tema"></app-erro-message>
             </div>
@@ -28,7 +27,6 @@
                 [ngClass]="validateCss(f.local)"
                 formControlName="local"
                 placeholder=""
-                [(ngModel)]="evento.local"
               >
               <app-erro-message class="invalid-feedback" [control]="f.local" label="Local"></app-erro-message>
             </div>
@@ -43,7 +41,6 @@
                 placeholder=""
                 bsDatepicker
                 value="{{evento?.dataEvento | DateFormatPipe}}"
-                [(ngModel)]="evento.dataEvento"
               >
               <app-erro-message class="invalid-feedback" [control]="f.dataEvento" label="Data do evento"></app-erro-message>
             </div>
@@ -57,7 +54,6 @@
                 [ngClass]="validateCss(f.qtdPessoas)"
                 formControlName="qtdPessoas"
                 placeholder=""
-                [(ngModel)]="evento.qtdPessoas"
               >
               <app-erro-message class="invalid-feedback" [control]="f.qtdPessoas" label="Qtd pessoas"></app-erro-message>
             </div>
@@ -69,7 +65,6 @@
                 [ngClass]="validateCss(f.telefone)"
                 formControlName="telefone"
                 placeholder="(00) 00000-0000"
-                [(ngModel)]="evento.telefone"
               >
               <app-erro-message class="invalid-feedback" [control]="f.telefone" label="Telefone"></app-erro-message>
             </div>
@@ -81,7 +76,6 @@
                 [ngClass]="validateCss(f.email)"
                 formControlName="email"
                 placeholder="email"
-                [(ngModel)]="evento.email"
               >
               <app-erro-message class="invalid-feedback" [control]="f.email" label="Email"></app-erro-message>
             </div>
@@ -220,7 +214,7 @@
       </div>
       <div class="card profile-card-2">
         <div class="card-img-block">
-          <img class="image" [src]="imagemUrl" class="img-fluid" (click)="file.click()" alt="Card image cap"
+          <img class="image img-fluid" [src]="imagemUrl" (click)="file.click()" alt="Card image cap"
           tooltip="Uplaod de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
         </div>
         <div class="card-body pt-3">

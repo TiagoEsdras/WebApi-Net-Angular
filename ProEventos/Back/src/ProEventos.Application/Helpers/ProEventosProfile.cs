@@ -8,7 +8,9 @@ namespace ProEventos.Application.Helpers
     public class ProEventosProfile : Profile
     {
         public ProEventosProfile() {
-            CreateMap<Evento, EventoDto>().ReverseMap();
+            CreateMap<Evento, EventoDto>()
+                .ForMember(dto => dto.DataEvento, opt => opt.MapFrom(model => model.DataEvento.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:ss")))
+                .ReverseMap();
             CreateMap<Lote, LoteDto>().ReverseMap();
             CreateMap<Palestrante, PalestranteDto>().ReverseMap();
             CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();

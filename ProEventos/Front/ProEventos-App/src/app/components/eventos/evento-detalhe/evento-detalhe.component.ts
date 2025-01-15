@@ -1,26 +1,36 @@
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { LoteService } from './../../../services/lote.service';
 import { EventoService } from '@app/services/evento.service';
-import { LoteService } from '@app/services/lote.service';
 import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DatePipe } from '@angular/common';
 import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
   templateUrl: './evento-detalhe.component.html',
-  styleUrls: ['./evento-detalhe.component.scss']
+  styleUrls: ['./evento-detalhe.component.scss'],
+  providers: [DatePipe],
 })
+
 export class EventoDetalheComponent implements OnInit {
 
   modalRef: BsModalRef;
   eventoId: number;
-  evento: Evento;
+  evento = {} as Evento;
   form: FormGroup;
   estadoSalvar: string = 'post';
   loteAtual = {id: 0, nome: '', index: 0};
@@ -57,7 +67,8 @@ export class EventoDetalheComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private datePipe: DatePipe
     ) {
       this.localeService.use('pt-br');
     }
