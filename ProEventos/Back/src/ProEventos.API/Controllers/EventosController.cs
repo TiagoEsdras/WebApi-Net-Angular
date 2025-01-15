@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ProEventos.Application.Contratos;
-using ProEventos.Domain;
-using Microsoft.AspNetCore.Http;
-using ProEventos.Application.Dtos;
-using System.IO;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ProEventos.API.Extensions;
-using Microsoft.AspNetCore.Authorization;
+using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
+using ProEventos.Persistence.Models;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
 {
@@ -35,32 +34,32 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] PageParams pageParams)
         {
             try
             {
-                var userId = User.GetUserId();
-                var eventos = await _eventoService.GetAllEventosAsync(userId, true);
-                if(eventos == null) return NoContent();
+                var eventos = await _eventoService.GetAllEventosAsync(User.GetUserId(), pageParams, true);
+
+                Response.AddPagination(eventos.CurrentPage, eventos.PageSize, eventos.TotalCount, eventos.TotalPages);
 
                 return Ok(eventos);
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                $"Erro ao tentar recuperar os eventos. Erro: {ex.Message}");
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
             }
         }
 
-        [HttpGet("{id}")]        
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
                 var userId = User.GetUserId();
                 var evento = await _eventoService.GetEventoByIdAsync(userId, id, true);
-                if(evento == null) return NoContent();
-                
+                if (evento == null) return NoContent();
+
                 return Ok(evento);
             }
             catch (Exception ex)
@@ -70,36 +69,19 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpGet("{tema}/tema")]
-        public async Task<IActionResult> GetByTema(string tema)
-        {
-            try
-            {
-                var userId = User.GetUserId();
-                var eventos = await _eventoService.GetAllEventosByTemaAsync(userId, tema, true);
-                if(eventos == null) return NoContent();
-
-                return Ok(eventos);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                $"Erro ao tentar recuperar o eventos com Tema: {tema}. Erro: {ex.Message}");
-            }
-        }
-
-         [HttpPost("upload-image/{eventoId}")]
+        [HttpPost("upload-image/{eventoId}")]
         public async Task<IActionResult> UploadImage(int eventoId)
         {
             try
             {
                 var userId = User.GetUserId();
                 var evento = await _eventoService.GetEventoByIdAsync(userId, eventoId, true);
-                if(evento == null) return NoContent();
+                if (evento == null) return NoContent();
 
                 var file = Request.Form.Files[0];
 
-                if(file.Length > 0) {
+                if (file.Length > 0)
+                {
                     DeleteImage(evento.ImageURL);
                     evento.ImageURL = await SaveImage(file);
                 }
@@ -122,7 +104,7 @@ namespace ProEventos.API.Controllers
             {
                 var userId = User.GetUserId();
                 var evento = await _eventoService.AddEventos(userId, model);
-                if(evento == null) return NoContent();
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -140,7 +122,7 @@ namespace ProEventos.API.Controllers
             {
                 var userId = User.GetUserId();
                 var evento = await _eventoService.UpdateEvento(userId, id, model);
-                if(evento == null) return NoContent();
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -158,13 +140,15 @@ namespace ProEventos.API.Controllers
             {
                 var userId = User.GetUserId();
                 var evento = await _eventoService.GetEventoByIdAsync(userId, id, true);
-                if(evento == null) return NoContent();
+                if (evento == null) return NoContent();
 
-                if(await _eventoService.DeleteEvento(userId, id)) {
+                if (await _eventoService.DeleteEvento(userId, id))
+                {
                     DeleteImage(evento.ImageURL);
-                    return  Ok(true);
+                    return Ok(true);
                 }
-                else {
+                else
+                {
                     throw new Exception("Ocorreu um erro ao tentar deletar o evento!");
                 }
             }
@@ -176,15 +160,16 @@ namespace ProEventos.API.Controllers
         }
 
         [NonAction]
-        public void DeleteImage(string imageName) {
+        public void DeleteImage(string imageName)
+        {
             var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, @"Resources/images", imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
 
         [NonAction]
-        public async Task<string> SaveImage(IFormFile imageFile) {
-
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
             string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
                 .Take(10)
                 .ToArray()
