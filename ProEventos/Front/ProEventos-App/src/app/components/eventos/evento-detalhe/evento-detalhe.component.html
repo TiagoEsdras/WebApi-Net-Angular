@@ -161,9 +161,8 @@
                   <label>Data Início</label>
                   <input
                     [ngClass]="validateCss(lotes.get(i+'.dataInicio'))"
-                    type="text"
+                    type="datetime"
                     class="form-control"
-                    formControlName="dataInicio"
                     placeholder="01/01/2019"
                     bsDatepicker
                     value="{{lotes.get(i + '.dataInicio').value | date:'dd/MM/yyyy'}}"
@@ -174,9 +173,8 @@
                   <label>Data Fim</label>
                   <input
                     [ngClass]="validateCss(lotes.get(i+'.dataFim'))"
-                    type="text"
+                    type="datetime"
                     class="form-control"
-                    formControlName="dataFim"
                     placeholder="01/01/2019"
                     bsDatepicker
                     value="{{lotes.get(i + '.dataFim').value | date:'dd/MM/yyyy'}}"
