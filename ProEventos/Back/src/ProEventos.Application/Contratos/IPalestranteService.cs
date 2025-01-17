@@ -6,9 +6,9 @@ namespace ProEventos.Application.Contratos
 {
     public interface IPalestranteService
     {
-        Task<PalestranteDto> AddPalestrantes(int userId, PalestranteAddDto model);
+        Task<PalestranteDto> AddPalestrantes(int userId, PalestranteAddDto palestranteAddDto);
 
-        Task<PalestranteDto> UpdatePalestrante(int userId, PalestranteUpdateDto model);
+        Task<PalestranteDto> UpdatePalestrante(int userId, PalestranteUpdateDto palestranteUpdateDto);
 
         Task<PageList<PalestranteDto>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false);
 
