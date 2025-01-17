@@ -1,13 +1,15 @@
-using System.Threading.Tasks;
 using ProEventos.Domain;
+using ProEventos.Persistence.Models;
+using System.Threading.Tasks;
 
 namespace ProEventos.Persistence.Contratos
 {
-    public interface IPalestrantePersist
+    public interface IPalestrantePersist : IGeralPersist
     {
         //Palestrantes
-        Task<Palestrante[]> GetAllPalestrantesByNomeAsync(string nome, bool includeEventos = false);
-        Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos = false);
-        Task<Palestrante> GetPalestranteByIdAsync(int palestranteId, bool includeEventos = false);
+
+        Task<PageList<Palestrante>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false);
+
+        Task<Palestrante> GetPalestranteByIdAsync(int userId, bool includeEventos = false);
     }
 }
