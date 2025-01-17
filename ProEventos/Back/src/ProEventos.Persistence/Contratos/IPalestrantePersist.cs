@@ -10,6 +10,6 @@ namespace ProEventos.Persistence.Contratos
 
         Task<PageList<Palestrante>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false);
 
-        Task<Palestrante> GetPalestranteByIdAsync(int userId, bool includeEventos = false);
+        Task<Palestrante> GetPalestranteByUserIdAsync(int userId, bool includeEventos = false);
     }
 }

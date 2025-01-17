@@ -59,7 +59,7 @@ namespace ProEventos.Application
 
                 _mapper.Map(model, evento);
 
-                _geralPersist.Updade<Evento>(evento);
+                _geralPersist.Update<Evento>(evento);
 
                 if (await _geralPersist.SaveChangesAsync())
                 {

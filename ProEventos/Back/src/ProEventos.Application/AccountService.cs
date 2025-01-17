@@ -99,7 +99,7 @@ namespace ProEventos.Application
                     await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);
                 }
 
-                _userPersist.Updade<User>(user);
+                _userPersist.Update<User>(user);
 
                 if (await _userPersist.SaveChangesAsync())
                 {

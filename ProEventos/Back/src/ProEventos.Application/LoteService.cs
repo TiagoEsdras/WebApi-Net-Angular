@@ -46,7 +46,7 @@ namespace ProEventos.Application
             {
                 model.EventoId = eventoId;
                 _mapper.Map(model, lote);
-                _geralPersist.Updade<Lote>(lote);
+                _geralPersist.Update<Lote>(lote);
                 await _geralPersist.SaveChangesAsync();
             }
             catch (Exception ex)

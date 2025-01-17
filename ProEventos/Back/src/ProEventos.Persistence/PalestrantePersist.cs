@@ -41,7 +41,7 @@ namespace ProEventos.Persistence
             return await PageList<Palestrante>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
-        public async Task<Palestrante> GetPalestranteByIdAsync(int userId, bool includeEventos)
+        public async Task<Palestrante> GetPalestranteByUserIdAsync(int userId, bool includeEventos)
         {
             IQueryable<Palestrante> query = _context.Palestrantes
                 .AsNoTracking()
